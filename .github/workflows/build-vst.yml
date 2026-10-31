@@ -13,13 +13,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Configure CMake
-        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
-
-      - name: Build VST3
-        run: cmake --build build --config Release --target ELAFX_VST3
+      -CMakeVST33
 
       - name: Upload Windows VST3 Artifact
         uses: actions/upload-artifact@v4
-        name: ELA-FX-Windows-VST3
+        with:
+          name: ELA-FX-Windows-VST3
           path: build/ELAFX_artefacts/Release/VST3/
