@@ -1,22 +1,15 @@
-name: Build Windows VST3
-
-on:
-  push:
-    branches: [ "main", "master" ]
-  workflow_dispatch:
-
+name: Build VST3
+on: [push, workflow_dispatch]
 jobs:
-  build-windows:
+  build:
     runs-on: windows-2022
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      -CMakeVST33
-
-      - name: Upload Windows VST3 Artifact
-        uses: actions/upload-artifact@v4
+      - uses: actions/checkout@v4
+      - name: Build
+        run: |
+          cmake -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --config Release --target ELAFX_VST3
+      - uses: actions/upload-artifact@v4
         with:
-          name: ELA-FX-Windows-VST3
+          name: ELA-FX-VST3
           path: build/ELAFX_artefacts/Release/VST3/
